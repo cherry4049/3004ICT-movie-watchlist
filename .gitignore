@@ -1,28 +1,38 @@
-# Angular specific
-/dist/
-/out-tsc/
-/tmp/
-/coverage/
-/e2e/test-output/
-/.angular/
-.angular/
+# Laravel environment files
+.env
+.env.backup
+.env.production
 
-# Node modules and dependency files
-/node_modules/
-/package-lock.json
-/yarn.lock
+# Composer dependencies
+/vendor/
 
-# Environment files
-/.env
+# Node dependencies (if using Vite)
+node_modules/
 
-# Angular CLI and build artefacts
-/.angular-cli.json
-/.ng/
+# Build files
+/public/build/
+/public/hot
 
-# TypeScript cache
-*.tsbuildinfo
+# Laravel cache and runtime files
+/storage/*.key
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# PHPStorm / VS Code / IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing and coverage
+.phpunit.result.cache
+coverage/
+
+# SQLite database
+/database/database.sqlite
