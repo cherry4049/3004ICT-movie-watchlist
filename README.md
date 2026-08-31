@@ -1,4 +1,5 @@
 # 🎬 CineTrack
+
 ## Movie Review & Watchlist System
 
 **3004ICT – Major Web Application Project**
@@ -7,21 +8,20 @@
 
 ## Student Information
 
-**Name:** Yuehui Chen  
-**Student Number:** S5361257  
+**Name:** Yuehui Chen
+**Student Number:** S5361257
 **Workshop:** Online
 
 ---
 
 ## 📖 Project Purpose
 
-> This app helps movie enthusiasts discover, organise, and review movies they have watched or want to watch.
-
----
+> This app helps movie fans organise, track, and review the movies they want to watch and have already watched
 
 ## ✨ Features
 
 ### Core Features
+
 - User registration, login, and logout
 - Display the logged-in user's name on every page
 - Browse movie collection
@@ -31,6 +31,7 @@
 - Ownership authorization
 
 ### Planned Advanced Features
+
 - 🎬 Movie poster image upload
 - 🔍 Search with pagination
 - 🏷️ Movie genres (Many-to-Many relationship)
@@ -56,13 +57,13 @@
 
 ## 🗄️ Planned Database Design
 
-| Table | Description |
-|--------|-------------|
-| users | User accounts |
-| movies | Movie information |
-| reviews | User reviews and ratings |
-| genres | Movie genres |
-| watchlists | User watchlists |
+| Table       | Description                           |
+| ----------- | ------------------------------------- |
+| users       | User accounts                         |
+| movies      | Movie information                     |
+| reviews     | User reviews and ratings              |
+| genres      | Movie genres                          |
+| watchlists  | User watchlists                       |
 | genre_movie | Pivot table linking movies and genres |
 
 ---
@@ -70,6 +71,7 @@
 ## 🚀 Planned Functionality
 
 ### User
+
 - Register/Login/Logout
 - Browse movies
 - Search movies
@@ -79,6 +81,7 @@
 - Upload movie posters (if permitted)
 
 ### Administrator
+
 - Manage movies
 - Manage genres
 - Manage users
@@ -131,7 +134,7 @@ This project demonstrates:
 - Eloquent ORM relationships
 - CRUD operations
 - Validation
-- Authorization
+- Authorisation
 - Middleware
 - File uploads
 - Search & pagination
