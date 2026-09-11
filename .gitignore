@@ -1,38 +1,29 @@
-# Laravel environment files
+*.log
+.DS_Store
 .env
 .env.backup
 .env.production
-
-# Composer dependencies
-/vendor/
-
-# Node dependencies (if using Vite)
-node_modules/
-
-# Build files
-/public/build/
+.phpactor.json
+.phpunit.result.cache
+/.codex
+/.cursor/
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/build
+/public/fonts-manifest.dev.json
 /public/hot
-
-# Laravel cache and runtime files
+/public/storage
 /storage/*.key
-/storage/framework/cache/*
-/storage/framework/sessions/*
-/storage/framework/views/*
-/storage/logs/*
-
-# PHPStorm / VS Code / IDE files
-.idea/
-.vscode/
-*.sublime-project
-*.sublime-workspace
-
-# OS files
-.DS_Store
+/storage/pail
+/vendor
+_ide_helper.php
+Homestead.json
+Homestead.yaml
 Thumbs.db
 
-# Testing and coverage
-.phpunit.result.cache
-coverage/
-
-# SQLite database
 /database/database.sqlite
