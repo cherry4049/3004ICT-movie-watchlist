@@ -12,9 +12,9 @@
 
 ![Login Screen](..\..\public\images\login.png)
 
-## 4. Movies
+## 4. Browse Movies
 
-![Movies Screen](..\..\public\images\movies.png)
+![Movies Screen](..\..\public\images\browse-movies.png)
 
 ## 5. Movie Details
 

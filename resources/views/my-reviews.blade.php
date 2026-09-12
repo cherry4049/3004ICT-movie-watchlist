@@ -7,41 +7,79 @@
 </head>
 <body>
 
-    <h1>My Reviews</h1>
+    @include('layouts.navbar')
 
-    @if (session('success'))
-        <div>
-            {{ session('success') }}
-        </div>
-    @endif
+    <main>
 
-    @if ($reviews->isEmpty())
-        <p>You have not written any reviews yet.</p>
-    @else
-        @foreach ($reviews as $review)
+        <h1>My Reviews</h1>
+
+        @if (session('success'))
             <div>
-                <h2>{{ $review->movie->title }}</h2>
+                {{ session('success') }}
+            </div>
+        @endif
 
+        @if ($reviews->isEmpty())
+
+            <p>You have not written any reviews yet.</p>
+
+        @else
+
+        @foreach ($reviews as $review)
+
+            <div>
+        
+                <div>
+                    <strong>{{ $review->movie->title }}</strong>
+        
+                    <span>
+                        @for ($i = 1; $i <= 5; $i++)
+                            {{ $i <= $review->rating ? '★' : '☆' }}
+                        @endfor
+                    </span>
+                </div>
+        
                 <p>
                     <strong>{{ $review->title }}</strong>
                 </p>
-
+        
                 <p>
-                    Rating: {{ $review->rating }}/5
+                    {{ $review->content }}
                 </p>
-
-                <p>{{ $review->content }}</p>
-
+        
                 <a href="{{ route('movies.show', $review->movie) }}">
-                    View Movie
+                    <button type="button">View Movie</button>
                 </a>
-            </div>
-        @endforeach
-    @endif
+        
+                <a href="{{ route('reviews.edit', $review) }}">
+                    Edit
+                </a>
+        
+                <form
+                    method="POST"
+                    action="{{ route('reviews.destroy', $review) }}"
+                    style="display: inline;"
+                    onsubmit="return confirm('Are you sure you want to delete this review?');"
+                >
+                    @csrf
 
-    <p>
-        <a href="{{ route('home') }}">Home</a>
-    </p>
+                    <!-- tells Laravel to treat thios form submission as a DELETE request -->
+                    @method('DELETE')
+
+                    <button type="submit">
+                        Delete
+                    </button>
+                </form>
+        
+            </div>
+        
+        @endforeach
+
+        @endif
+
+    </main>
+
+    @include('layouts.footer')
 
 </body>
 </html>

@@ -3,74 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regiser - CineTrack</title>
+    <title>Register - CineTrack</title>
 </head>
 <body>
-    
-    <h1>Register</h1>
 
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+    @include('layouts.navbar')
 
-        @if ($errors->any())
+    <main>
+
+        <h1>Create Account</h1>
+
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
+
+            @if ($errors->any())
+                <div>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                <label for="name">Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value="{{ old('name') }}"
+                    placeholder="Enter your name"
+                    required
+                >
             </div>
-        @endif
 
-        <div>
-            <label for="name">Name</label>
-            <input
-                type="text"
-                id="name"
-                name="name"
-                value="{{ old('name') }}"
-                required
-            >
-        </div>
+            <div>
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
 
-        <div>
-            <label for="email">Email</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value="{{ old('email') }}"
-                required
-            >
-        </div>
+            <div>
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
 
-        <div>
-            <label for="password">Password</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                required
-            >
-        </div>
+            <div>
+                <label for="password_confirmation">Confirm Password</label>
+                <input
+                    type="password"
+                    id="password_confirmation"
+                    name="password_confirmation"
+                    placeholder="Confirm your password"
+                    required
+                >
+            </div>
 
-        <div>
-            <label for="password_confirmation">Confirm Password</label>
-            <input
-                type="password"
-                id="password_confirmation"
-                name="password_confirmation"
-                required
-            >
-        </div>
+            <button type="submit">Register</button>
+        </form>
 
-        <button type="submit">Register</button>
-    </form>
+        <p>
+            Already have an account?
+            <a href="{{ route('login') }}">Login</a>
+        </p>
 
-    <p>
-        Already have an account?
-        <a href="{{ route('login') }}">Login</a>
-    </p>
+    </main>
+
+    @include('layouts.footer')
 
 </body>
 </html>

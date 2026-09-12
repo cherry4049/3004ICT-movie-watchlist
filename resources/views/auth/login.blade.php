@@ -6,11 +6,18 @@
     <title>Login - CineTrack</title>
 </head>
 <body>
-    <h1>Login</h1>
 
-    <form method="POST" action="{{ route('login') }}">
-        
-        @csrf
+    @include('layouts.navbar')
+
+    <main>
+
+        <h1>Login</h1>
+
+        @if (session('success'))
+            <div>
+                {{ session('success') }}
+            </div>
+        @endif
 
         @if ($errors->any())
             <div>
@@ -22,41 +29,44 @@
             </div>
         @endif
 
-        <!-- Display registration success message -->
-        @if (session('success'))
+        <form method="POST" action="{{ route('login') }}">
+
+            @csrf
+
             <div>
-                {{ session('success') }}
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    placeholder="Enter your email"
+                    required
+                >
             </div>
-        @endif
 
+            <div>
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
 
-        <div>
-            <label for="email">Email</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value="{{ old('email') }}"
-                required
-            >
-        </div>
+            <button type="submit">Login</button>
+        </form>
 
-        <div>
-            <label for="password">Password</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                required
-            >
-        </div>
+        <p>
+            Don't have an account?
+            <a href="{{ route('register') }}">Register</a>
+        </p>
 
-        <button type="submit">Login</button>
-    </form>
+    </main>
 
-    <p>
-        Don't have an account?
-        <a href="{{ route('register') }}">Register</a>
-    </p>
+    @include('layouts.footer')
+
 </body>
 </html>
