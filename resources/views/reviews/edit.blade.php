@@ -27,7 +27,7 @@
                 </a>
             </div>
 
-            <hr class="mt-4 mb-4">
+            <hr class="my-4">
 
             <!-- Page heading -->
             <h1 class="text-center text-2xl font-bold text-green-600 sm:text-3xl">

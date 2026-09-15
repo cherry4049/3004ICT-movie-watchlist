@@ -123,18 +123,18 @@
             <!-- Movies -->
             <section>
     
-                <h2 class="text-2xl font-bold text-green-600 sm:text-3xl">
+                <h2 class="text-2xl font-bold text-orange-400 sm:text-3xl">
                     Movies
                 </h2>
     
                 <!-- Movie cards -->                
                 @if ($movies->count())
 
-                    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
                         @foreach ($movies as $movie)
 
-                            <article class="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                            <article class="flex w-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
 
                                 <!-- Poster -->
                                 <div class="flex items-center justify-center aspect-[1/1] w-full bg-slate-100">
@@ -144,7 +144,7 @@
                                         <img
                                             src="{{ asset('images/' . $movie->poster) }}"
                                             alt="{{ $movie->title }} poster"
-                                            class="max-h-full max-w-full object-contain"
+                                            class="h-[90%] w-auto max-w-[90%] object-contain"
                                         >
 
                                     @else

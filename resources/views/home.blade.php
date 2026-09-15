@@ -74,20 +74,20 @@
             <!-- Recent Movies -->
             <section>
 
-                <h2 class="text-2xl font-bold text-green-600 sm:text-3xl">
+                <h2 class="text-2xl font-bold text-orange-400 sm:text-3xl">
                     Recent Movies
                 </h2>
 
-                <p class="mt-3 text-left text-base text-slate-600">
+                <p class="mt-3 mb-3 text-left text-base">
                     This section shows the 9 most recently added movies. Go to "Movies" in the navigation bar or click "Browse Movies" above to view, search, and filter all available movies.
                 </p>
 
                 <!-- Movie cards -->
-                <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-3">
 
                     @foreach ($movies as $movie)
                 
-                        <article class="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                        <article class="flex w-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
                 
                             <!-- Poster -->
                             <div class="flex aspect-[1/1] w-full items-center justify-center bg-slate-100">
@@ -97,12 +97,12 @@
                                     <img
                                         src="{{ asset('images/' . $movie->poster) }}"
                                         alt="{{ $movie->title }} poster"
-                                        class="max-h-full max-w-full object-contain"
+                                        class="h-[90%] w-auto max-w-[90%] object-contain"
                                     >
                 
                                 @else
                 
-                                    <div class="flex h-full items-center justify-center text-slate-500">
+                                    <div class="flex w-full items-center justify-center text-slate-500">
                                         No poster available
                                     </div>
                 
@@ -118,7 +118,7 @@
                                 </h3>
                 
                                 <p class="mt-2 text-slate-600">
-                                    Release year: {{ $movie->release_year }}
+                                    Release Year: {{ $movie->release_year }}
                                 </p>
                 
                                 @if ($movie->reviews_avg_rating)

@@ -31,7 +31,7 @@
                 Movie Details
             </h1>
 
-            <hr class="mt-4">
+            <hr class="mt-4 border-slate-300">
 
             <!-- Success message -->
             @if (session('success'))
@@ -131,7 +131,7 @@
                         </p>
                     </div>
 
-                    <hr class="mt-4">
+                    <hr class="mt-4 border-slate-300">
                     
                     <!-- Write review -->
                     @auth
@@ -149,7 +149,7 @@
 
             </div>
             
-            <hr class="mt-4">
+            <hr class="mt-4 border-slate-300">
 
             <!-- Reviews -->
             <section class="mt-5">
@@ -181,7 +181,7 @@
                                     By {{ $review->user->name }}
                                 </p>
 
-                                <hr class="mt-4">
+                                <hr class="mt-4 border-slate-300">
 
                                 <p class="mt-4 leading-7 text-slate-700">
                                     {{ $review->content }}

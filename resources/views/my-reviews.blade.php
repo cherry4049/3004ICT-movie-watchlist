@@ -53,7 +53,7 @@
 
                             </div>
 
-                            <hr class="mt-4">
+                            <hr class="mt-4 border-slate-300">
 
                             <!-- Rating -->
                             <p class="mt-2 text-lg text-orange-400 text-right">
@@ -70,7 +70,7 @@
                                 {{ $review->content }}
                             </p>
 
-                            <hr class="mt-4">
+                            <hr class="mt-4 border-slate-300">
 
                             <!-- Edit and Delete -->
                             <div class="mt-6 flex items-center justify-center flex-wrap gap-5">

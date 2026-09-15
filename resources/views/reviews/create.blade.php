@@ -32,7 +32,7 @@
                 Write a Review
             </h1>
 
-            <hr class="mt-4">
+            <hr class="mt-4 border-slate-300">
 
             <div class="mt-4 flex items-center gap-2 text-left text-lg">
                 <span class="text-purple-500 font-bold">
