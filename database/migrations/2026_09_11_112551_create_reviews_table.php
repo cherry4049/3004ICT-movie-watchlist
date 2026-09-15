@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->foreignId('movie_id')
                 ->constrained('movies')
-                ->casecadeOnDelete();
+                ->cascadeOnDelete();
                 
             $table->unsignedTinyInteger('rating');
             $table->string('title');

@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Movie extends Model
 {
-    public $timestamps = false;
+    //allow Movie::create() or $movie->update() to fill
+    protected $fillable = [
+        'title',
+        'description',
+        'release_year',
+        'poster',
+    ];
 
     public function reviews(): HasMany
     {

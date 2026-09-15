@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - CineTrack</title>
+
+    @vite('resources/css/app.css')
 </head>
 <body>
 
@@ -11,18 +13,42 @@
 
     <main>
 
-        <h1>Welcome to CineTrack</h1>
+        <h1>
+            @auth
+                Welcome back, {{ auth()->user()->name }}!
+            @else
+                Welcome to CineTrack
+            @endauth
+        </h1>        
 
-        <p>
-            Discover movies. Read reviews.
-        </p>
+        @if (auth()->check())
+            @if (auth()->user()->role === 'admin')
+                <p>
+                    Discover movies, read reviews, and manage the CineTrack movie collection.
+                </p>
+            @else
+                <p>
+                    Discover movies, read reviews, and share your opinion.
+                </p>
+            @endif
 
-        <p>
-            Login or create an account to share your opinion.
-        </p>
+        @else                   
+            <p>
+                Discover movies. Read reviews.
+            </p>
+
+            <p>
+                Login or create an account to share your opinion.
+            </p>
+        @endif
+
+        <hr>
 
         <section>
-            <h2>Featured / Recent Movies</h2>
+            <h2>Recent Movies</h2>
+            <p>
+                This section shows the 9 most recently added movies. Go to "Movies" in the navigation bar or click "Browse Movies" below to view, search, and filter all available movies.            
+             </p>
         
             @foreach ($movies as $movie)
                 <div>
@@ -50,6 +76,8 @@
                 </div>
             @endforeach
         </section>
+
+        <hr>
 
         <p>
             <a href="{{ route('movies.index') }}">

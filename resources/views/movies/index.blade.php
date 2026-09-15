@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Movies - CineTrack</title>
+
+    @vite('resources/css/app.css')
 </head>
 <body>
 
@@ -17,7 +19,6 @@
 
             <div>
                 <label for="search">Search movies by title</label>
-
                 <input
                     type="text"
                     id="search"
@@ -29,7 +30,6 @@
 
             <div>
                 <label for="genre">Genre</label>
-
                 <select id="genre" name="genre">
                     <option value="">All Genres</option>
 
@@ -46,7 +46,6 @@
 
             <div>
                 <label for="year">Release Year</label>
-
                 <select id="year" name="year">
                     <option value="">All Years</option>
 
@@ -62,10 +61,6 @@
             </div>
 
             <button type="submit">Search</button>
-            
-            @if ($filtersUsed && $matchingMovies->isEmpty())
-                <p>No matching movies found.</p>
-            @endif
 
         </form>
 
@@ -75,16 +70,23 @@
 
             <h2>Movies</h2>
 
+            @auth
+                @if (auth()->user()->role === 'admin')
+                    <a href="{{ route('admin.movies.index') }}">
+                        Manage Movies
+                    </a>
+                @endif
+            @endauth
+
             @if ($movies->isEmpty())
 
-                <p>No movies match your search or filters.</p>
+                <p>No matching movies found.</p>
 
             @else
 
                 @foreach ($movies as $movie)
 
                     <div>
-
                         @if ($movie->poster)
                             <img
                                 src="{{ asset('images/' . $movie->poster) }}"
@@ -108,10 +110,14 @@
                         <a href="{{ route('movies.show', $movie) }}">
                             Details
                         </a>
-
                     </div>
 
                 @endforeach
+
+                <!-- generate the pagination controls automatically -->
+                <div>
+                    {{ $movies->links() }}
+                </div>
 
             @endif
 

@@ -472,7 +472,7 @@
         <mxCell id="lrGDCgX472ae4OHHYuwe-163" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;Search movies&lt;/b&gt;" vertex="1">
           <mxGeometry height="35" width="96" x="613" y="2081" as="geometry" />
         </mxCell>
-        <mxCell id="lrGDCgX472ae4OHHYuwe-164" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;shadow=1;" value="Rearch" vertex="1">
+        <mxCell id="lrGDCgX472ae4OHHYuwe-164" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;shadow=1;" value="Search" vertex="1">
           <mxGeometry height="30" width="66" x="873" y="2109" as="geometry" />
         </mxCell>
         <mxCell id="lrGDCgX472ae4OHHYuwe-165" parent="1" style="swimlane;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;startSize=20;html=1;" value="&lt;span style=&quot;color: rgb(0, 102, 0);&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Movie List&lt;/font&gt;&lt;/span&gt;" vertex="1">

@@ -36,7 +36,34 @@ Route::put('/reviews/{review}', [ReviewController::class, 'update'])
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])
     ->name('reviews.destroy');
 
+// Admin movie management
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    // Admin movie management
+    Route::get('/admin/movies', [MovieController::class, 'adminIndex'])
+            ->name('admin.movies.index');    
     
+    // Admin movie create
+    Route::get('/admin/movies/create', [MovieController::class, 'create'])
+        ->name('admin.movies.create');
+
+    // Save the new added movie
+    Route::POST('/admin/movies', [MovieController::class, 'store'])
+        ->name('admin.movies.store');
+
+    // show movie edit form
+    Route::get('/admin/movies/{movie}/edit', [MovieController::class, 'edit'])
+        ->name('admin.movies.edit');
+
+    // save movie edit form
+    Route::put('/admin/movies/{movie}', [MovieController::class, 'update'])
+        ->name('admin.movies.update');
+
+    // Delete movie
+    Route::delete('/admin/movies/{movie}', [MovieController::class, 'destroy'])
+        ->name('admin.movies.destroy');
+});
+
 // Authenticated routes
 Route::middleware('auth')->group(function () {
 
@@ -47,8 +74,7 @@ Route::middleware('auth')->group(function () {
         ->name('reviews.create');
 
     Route::post('/movies/{movie}/reviews', [ReviewController::class, 'store'])
-        ->name('reviews.store');
-    
+        ->name('reviews.store');    
      
 });
 

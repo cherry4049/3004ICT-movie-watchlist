@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->unsignedSmallInteger('release_year');
             $table->string('poster')->nullable();
+            $table->timestamps();
         });
     }
 

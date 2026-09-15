@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Reviews - CineTrack</title>
+
+    @vite('resources/css/app.css')
 </head>
 <body>
 
@@ -63,7 +65,7 @@
                 >
                     @csrf
 
-                    <!-- tells Laravel to treat thios form submission as a DELETE request -->
+                    <!-- tells Laravel to treat this form submission as a DELETE request -->
                     @method('DELETE')
 
                     <button type="submit">

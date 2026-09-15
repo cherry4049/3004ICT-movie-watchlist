@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $movie->title }} - CineTrack</title>
+
+    @vite('resources/css/app.css')
 </head>
 <body>
+
+    @include('layouts.navbar')
 
     <!-- submit review success message -->
     @if (session('success'))
@@ -15,6 +19,29 @@
     @endif
 
     <h1>Movie Details</h1>
+
+    @auth
+        @if (auth()->user()->role === 'admin')
+            <a href="{{ route('admin.movies.edit', $movie) }}">
+                Edit Movie
+            </a>
+
+            <form
+                method="POST"
+                action="{{ route('admin.movies.destroy', $movie) }}"
+                style="display: inline;"
+                onsubmit="return confirm('Are you sure you want to delete this movie?');"
+            >
+                @csrf
+                @method('DELETE')
+
+                <button type="submit">
+                    Delete Movie
+                </button>
+            </form>
+        @endif
+    @endauth
+
 
     <p>
         <a href="{{ route('movies.index') }}">
@@ -93,5 +120,6 @@
         @endforeach
     @endif
 
+    @include('layouts.footer')
 </body>
 </html>
