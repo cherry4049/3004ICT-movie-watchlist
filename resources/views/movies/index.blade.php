@@ -16,7 +16,7 @@
         <section class="mx-auto max-w-7xl px-6 py-10">
     
             <!-- Page heading -->
-            <h1 class="text-center text-2xl font-bold text-blue-600 sm:text-3xl">
+            <h1 class="text-center text-2xl font-bold text-green-600 sm:text-3xl">
                 Browse Movies
             </h1>
     
@@ -96,7 +96,7 @@
                                     value="{{ $yearOption->release_year }}"
                                     {{ $year == $yearOption->release_year ? 'selected' : '' }}
                                 >
-                                    {{ $yearOption->release_year }}
+                                    {{ $yearOption ->release_year }}
                                 </option>
                             @endforeach
                         </select>
@@ -130,21 +130,21 @@
                 <!-- Movie cards -->                
                 @if ($movies->count())
 
-                    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+                    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 
                         @foreach ($movies as $movie)
 
                             <article class="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
 
                                 <!-- Poster -->
-                                <div class="aspect-[1/1] w-full bg-slate-100">
+                                <div class="flex items-center justify-center aspect-[1/1] w-full bg-slate-100">
 
                                     @if ($movie->poster)
 
                                         <img
                                             src="{{ asset('images/' . $movie->poster) }}"
                                             alt="{{ $movie->title }} poster"
-                                            class="h-full w-full object-contain"
+                                            class="max-h-full max-w-full object-contain"
                                         >
 
                                     @else
@@ -160,34 +160,34 @@
                                 <!-- Movie information -->
                                 <div class="flex flex-1 flex-col p-5">
 
-                                    <h3 class="text-xl font-bold text-slate-900">
+                                    <h3 class="text-xl font-bold text-purple-500">
                                         {{ $movie->title }}
                                     </h3>
 
                                     <p class="mt-2 text-slate-600">
-                                        {{ $movie->release_year }}
+                                        Release Year: {{ $movie->release_year }}
                                     </p>
 
                                     @if ($movie->reviews_avg_rating)
 
-                                        <p class="mt-2 text-slate-700">
+                                        <p class="mt-2 text-orange-400">
                                             ★ {{ number_format($movie->reviews_avg_rating, 1) }} out of 5
                                         </p>
 
                                     @else
 
-                                        <p class="mt-2 text-slate-500">
+                                        <p class="mt-2 text-orange-400">
                                             ★ No ratings yet
                                         </p>
 
                                     @endif
 
                                     <!-- Details button -->
-                                    <div class="mt-auto pt-5">
+                                    <div class="flex justify-center mt-auto pt-5">
 
                                         <a
                                             href="{{ route('movies.show', $movie) }}"
-                                            class="inline-block rounded-md bg-blue-600 px-5 py-2 font-bold text-white hover:bg-green-500 hover:text-black"
+                                            class="inline-block rounded-md bg-blue-600 px-4 py-1 font-bold text-white hover:bg-green-500"
                                         >
                                             Details
                                         </a>

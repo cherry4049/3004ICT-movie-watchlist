@@ -21,21 +21,21 @@
             <div class="mb-6">
                 <a
                     href="{{ route('movies.show', $movie) }}"
-                    class="inline-block rounded-md border border-blue-600 px-5 py-2 font-bold text-blue-600 hover:bg-green-500 hover:text-black"
+                    class="inline-block rounded-md bg-blue-300 px-5 py-2 text-white hover:bg-green-500"
                 >
                     ← Back to Movie
                 </a>
             </div>
 
             <!-- Page heading -->
-            <h1 class="text-center text-3xl font-bold text-green-600 sm:text-4xl">
+            <h1 class="text-center text-2xl font-bold text-green-600 sm:text-3xl">
                 Write a Review
             </h1>
 
             <hr class="mt-4">
 
             <div class="mt-4 flex items-center gap-2 text-left text-lg">
-                <span class="text-orange-500 font-bold">
+                <span class="text-purple-500 font-bold">
                     Name of the Movie:
                 </span>
                 
@@ -136,14 +136,14 @@
 
                     <a
                         href="{{ route('movies.show', $movie) }}"
-                        class="rounded-md border border-slate-400 px-6 py-3 text-center font-bold text-slate-700 hover:bg-slate-100"
+                        class="rounded-md bg-orange-400 px-4 py-1 text-center font-bold text-white hover:bg-blue-400"
                     >
                         Cancel
                     </a>
 
                     <button
                         type="submit"
-                        class="rounded-md bg-blue-600 px-6 py-3 font-bold text-white hover:bg-green-500 hover:text-black"
+                        class="rounded-md bg-blue-600 px-4 py-1 font-bold text-white hover:bg-green-500"
                     >
                         Submit Review
                     </button>

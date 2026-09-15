@@ -51,6 +51,7 @@ class MovieController extends Controller
 
         $genres = Genre::orderBy('name')->get();
 
+        // Display available years from the collection of Movie records
         $years = Movie::select('release_year')
             ->distinct()
             ->orderByDesc('release_year')

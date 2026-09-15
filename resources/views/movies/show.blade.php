@@ -20,14 +20,14 @@
             <div class="mb-6">
                 <a
                     href="{{ route('movies.index') }}"
-                    class="inline-block rounded-md border border-blue-600 px-5 py-2 font-bold text-blue-600 hover:bg-green-500 hover:text-black"
+                    class="inline-block rounded-md bg-blue-300 px-5 py-2 text-white hover:bg-green-500"
                 >
                     ← Back to Movies
                 </a>
             </div>
 
             <!-- Page heading -->
-            <h1 class="text-center text-3xl font-bold text-green-600 sm:text-4xl">
+            <h1 class="text-center text-2xl font-bold text-green-600 sm:text-3xl">
                 Movie Details
             </h1>
 
@@ -47,7 +47,7 @@
 
                         <a
                             href="{{ route('admin.movies.edit', $movie) }}"
-                            class="rounded-md bg-blue-600 px-5 py-2 font-bold text-white hover:bg-green-500 hover:text-black"
+                            class="rounded-md bg-blue-600 px-4 py-1 font-bold text-white hover:bg-green-500 hover:text-black"
                         >
                             Edit Movie
                         </a>
@@ -62,7 +62,7 @@
 
                             <button
                                 type="submit"
-                                class="rounded-md bg-red-600 px-5 py-2 font-bold text-white hover:bg-yellow-400 hover:text-black"
+                                class="rounded-md bg-red-600 px-4 py-1 font-bold text-white hover:bg-yellow-400 hover:text-black"
                             >
                                 Delete Movie
                             </button>
@@ -163,7 +163,7 @@
                     <div class="mt-6 space-y-6">
 
                         @foreach ($movie->reviews as $review)
-                            <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+                            <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-md">
 
                                 <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 
@@ -171,7 +171,7 @@
                                         {{ $review->title }}
                                     </h3>
 
-                                    <p class="font-medium text-slate-700">
+                                    <p class="font-medium text-orange-500">
                                         ★ {{ $review->rating }} out of 5
                                     </p>
 
@@ -180,6 +180,8 @@
                                 <p class="mt-2 text-sm text-slate-500">
                                     By {{ $review->user->name }}
                                 </p>
+
+                                <hr class="mt-4">
 
                                 <p class="mt-4 leading-7 text-slate-700">
                                     {{ $review->content }}
