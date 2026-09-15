@@ -44,7 +44,7 @@ class MovieController extends Controller
 
         $movies = $query
             ->orderByDesc('release_year')
-            ->paginate(9)
+            ->paginate(16)
 
             // keeps the current search/filter values when moving between pages
             ->withQueryString();

@@ -10,23 +10,23 @@
                 <img
                     src="{{ asset('images/logo.png') }}"
                     alt="CineTrack"
-                    class="h-12 w-auto"
+                    class="auto w-30"
                 >
             </a>
     
             <!-- Desktop navigation -->
-            <div class="hidden items-center gap-6 lg:flex">
+            <div class="hidden items-center text-xl font-bold gap-8 lg:flex">
     
                 <a
                     href="{{ route('home') }}"
-                    class="{{ request()->routeIs('home') ? 'text-blue-400' : 'text-white' }} font-medium hover:text-green-500"
+                    class="{{ request()->routeIs('home') ? 'text-blue-400' : 'text-white' }} hover:text-green-500"
                 >
                     Home
                 </a>
     
                 <a
                     href="{{ route('movies.index') }}"
-                    class="{{ request()->routeIs('movies.*') ? 'text-blue-400' : 'text-white' }} font-medium hover:text-green-500"
+                    class="{{ request()->routeIs('movies.*') ? 'text-blue-400' : 'text-white' }} hover:text-green-500"
                 >
                     Movies
                 </a>
@@ -35,7 +35,7 @@
     
                     <a
                         href="{{ route('my-reviews') }}"
-                        class="{{ request()->routeIs('my-reviews') ? 'text-blue-400' : 'text-white' }} font-medium hover:text-green-500"
+                        class="{{ request()->routeIs('my-reviews') ? 'text-blue-400' : 'text-white' }} hover:text-green-500"
                     >
                         My Reviews
                     </a>
@@ -43,13 +43,13 @@
                     @if (auth()->user()->role === 'admin')
                         <a
                             href="{{ route('admin.movies.index') }}"
-                            class="{{ request()->routeIs('admin.movies.*') ? 'text-blue-400' : 'text-white' }} font-medium hover:text-green-500"
+                            class="{{ request()->routeIs('admin.movies.*') ? 'text-blue-400' : 'text-white' }} hover:text-green-500"
                         >
                             Manage Movies
                         </a>
                     @endif
     
-                    <span class="ml-4 text-white">
+                    <span class="ml-2 text-green-500">
                         Hi, {{ auth()->user()->name }}
                     </span>
     
@@ -58,7 +58,7 @@
     
                         <button
                             type="submit"
-                            class="rounded-md border border-white px-4 py-2 text-white hover:bg-white hover:text-slate-900"
+                            class="rounded-md border border-red-600 px-4 py-2 text-red-600 hover:border-yellow-400 hover:bg-yellow-400"
                         >
                             Logout
                         </button>
@@ -68,14 +68,14 @@
     
                     <a
                         href="{{ route('login') }}"
-                        class="{{ request()->routeIs('login') ? 'text-blue-400' : 'text-white' }} font-medium hover:text-green-500"
+                        class="{{ request()->routeIs('login') ? 'text-blue-400' : 'text-white' }} hover:text-green-500"
                     >
                         Login
                     </a>
     
                     <a
                         href="{{ route('register') }}"
-                        class="{{ request()->routeIs('register') ? 'text-blue-400' : 'text-white' }} font-medium hover:text-green-500"
+                        class="{{ request()->routeIs('register') ? 'text-blue-400' : 'text-white' }} hover:text-green-500"
                     >
                         Register
                     </a>
@@ -85,10 +85,10 @@
             </div>
     
             <!-- Mobile/tablet greeting + hamburger -->
-            <div class="flex items-center gap-4 lg:hidden">
+            <div class="flex items-center text-lg gap-4 lg:hidden">
     
                 @auth
-                    <span class="max-w-32 truncate text-white">
+                    <span class="whitespace-nowrap text-green-500">
                         Hi, {{ auth()->user()->name }}
                     </span>
                 @endauth
@@ -147,12 +147,12 @@
             class="absolute right-0 top-full z-50 mt-2 hidden w-56 rounded-md border border-black bg-white p-2 shadow-lg lg:hidden"
         >
     
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col text-lg gap-2">
     
                 <!-- Home -->
                 <a
                     href="{{ route('home') }}"
-                    class="{{ request()->routeIs('home') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 font-medium hover:border-green-500 hover:bg-green-500 hover:text-black"
+                    class="{{ request()->routeIs('home') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 hover:border-green-500 hover:bg-green-500 hover:text-black"
                 >
                     Home
                 </a>
@@ -160,7 +160,7 @@
                 <!-- Movies -->
                 <a
                     href="{{ route('movies.index') }}"
-                    class="{{ request()->routeIs('movies.*') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 font-medium hover:border-green-500 hover:bg-green-500 hover:text-black"
+                    class="{{ request()->routeIs('movies.*') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 hover:border-green-500 hover:bg-green-500 hover:text-black"
                 >
                     Movies
                 </a>
@@ -170,7 +170,7 @@
                     <!-- My Reviews -->
                     <a
                         href="{{ route('my-reviews') }}"
-                        class="{{ request()->routeIs('my-reviews') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 font-medium hover:border-green-500 hover:bg-green-500 hover:text-black"
+                        class="{{ request()->routeIs('my-reviews') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 hover:border-green-500 hover:bg-green-500 hover:text-black"
                     >
                         My Reviews
                     </a>
@@ -179,7 +179,7 @@
                     @if (auth()->user()->role === 'admin')
                         <a
                             href="{{ route('admin.movies.index') }}"
-                            class="{{ request()->routeIs('admin.movies.*') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 font-medium hover:border-green-500 hover:bg-green-500 hover:text-black"
+                            class="{{ request()->routeIs('admin.movies.*') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 hover:border-green-500 hover:bg-green-500 hover:text-black"
                         >
                             Manage Movies
                         </a>
@@ -191,7 +191,7 @@
     
                         <button
                             type="submit"
-                            class="w-full rounded-md border border-red-600 bg-transparent px-3 py-2 text-left font-medium text-red-600 hover:border-yellow-400 hover:bg-yellow-400 hover:text-black"
+                            class="w-full rounded-md border border-red-600 bg-transparent px-3 py-2 text-left text-red-600 hover:border-yellow-400 hover:bg-yellow-400"
                         >
                             Logout
                         </button>
@@ -202,7 +202,7 @@
                     <!-- Login -->
                     <a
                         href="{{ route('login') }}"
-                        class="{{ request()->routeIs('login') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 font-medium hover:border-green-500 hover:bg-green-500 hover:text-black"
+                        class="{{ request()->routeIs('login') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 hover:border-green-500 hover:bg-green-500 hover:text-black"
                     >
                         Login
                     </a>
@@ -210,7 +210,7 @@
                     <!-- Register -->
                     <a
                         href="{{ route('register') }}"
-                        class="{{ request()->routeIs('register') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 font-medium hover:border-green-500 hover:bg-green-500 hover:text-black"
+                        class="{{ request()->routeIs('register') ? 'border-blue-600 bg-blue-600 text-white' : 'border-black bg-transparent text-black' }} rounded-md border px-3 py-2 hover:border-green-500 hover:bg-green-500 hover:text-black"
                     >
                         Register
                     </a>

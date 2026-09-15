@@ -3,86 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Write Review - CineTrack</title>
+
+    <title>Write a Review - CineTrack</title>
 
     @vite('resources/css/app.css')
 </head>
-<body>
+
+<body class="min-h-screen flex flex-col">
 
     @include('layouts.navbar')
 
-    <main>
+    <main class="flex-1">
 
-        <p>
-            <a href="{{ route('movies.index') }}">
-                ← Back to Movies
-            </a>
-        </p>
+        <section class="mx-auto max-w-2xl px-6 py-10">
 
-        <h1>Write a Review</h1>
-
-        <h2>{{ $movie->title }}</h2>
-
-        @if ($errors->any())
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('reviews.store', $movie) }}">
-
-            @csrf
-
-            <div>
-                <label for="rating">Rating</label>
-
-                <select id="rating" name="rating" required>
-                    <option value="">Select a rating</option>
-                    <option value="1" {{ old('rating') == 1 ? 'selected' : '' }}>1</option>
-                    <option value="2" {{ old('rating') == 2 ? 'selected' : '' }}>2</option>
-                    <option value="3" {{ old('rating') == 3 ? 'selected' : '' }}>3</option>
-                    <option value="4" {{ old('rating') == 4 ? 'selected' : '' }}>4</option>
-                    <option value="5" {{ old('rating') == 5 ? 'selected' : '' }}>5</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="title">Review Title</label>
-
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    value="{{ old('title') }}"
-                    placeholder="Enter your review title"
-                    required
+            <!-- Back to Movie -->
+            <div class="mb-6">
+                <a
+                    href="{{ route('movies.show', $movie) }}"
+                    class="inline-block rounded-md border border-blue-600 px-5 py-2 font-bold text-blue-600 hover:bg-green-500 hover:text-black"
                 >
-            </div>
-
-            <div>
-                <label for="content">Review</label>
-
-                <textarea
-                    id="content"
-                    name="content"
-                    placeholder="Write your review..."
-                    required
-                >{{ old('content') }}</textarea>
-            </div>
-
-            <div>
-                <button type="submit">Submit</button>
-
-                <a href="{{ route('movies.show', $movie) }}">
-                    Cancel
+                    ← Back to Movie
                 </a>
             </div>
 
-        </form>
+            <!-- Page heading -->
+            <h1 class="text-center text-3xl font-bold text-green-600 sm:text-4xl">
+                Write a Review
+            </h1>
+
+            <hr class="mt-4">
+
+            <div class="mt-4 flex items-center gap-2 text-left text-lg">
+                <span class="text-orange-500 font-bold">
+                    Name of the Movie:
+                </span>
+                
+                <span class="text-black">
+                    {{ $movie->title }}
+                </span>
+            </div>
+
+            <!-- Validation errors -->
+            @if ($errors->any())
+                <div class="mt-6 rounded-md border border-red-600 bg-red-50 px-4 py-3 text-red-700">
+
+                    <ul class="list-disc space-y-1 pl-5">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+
+                </div>
+            @endif
+
+            <!-- Review form -->
+            <form
+                method="POST"
+                action="{{ route('reviews.store', $movie) }}"
+                class="mt-8 space-y-6"
+            >
+                @csrf
+
+                <!-- Rating -->
+                <div>
+                    <label
+                        for="rating"
+                        class="mb-1 block font-medium text-slate-700"
+                    >
+                        Rating
+                    </label>
+
+                    <select
+                        id="rating"
+                        name="rating"
+                        required
+                        class="w-full rounded-md border border-slate-400 bg-white px-4 py-2 text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    >
+                        <option value="">Select a rating</option>
+                        @for ($rating = 1; $rating <= 5; $rating++)
+                            <option
+                                value="{{ $rating }}"
+                                {{ old('rating') == $rating ? 'selected' : '' }}
+                            >
+                                {{ $rating }} out of 5
+                            </option>
+                        @endfor
+                    </select>
+                </div>
+
+                <!-- Review title -->
+                <div>
+                    <label
+                        for="title"
+                        class="mb-1 block font-medium text-slate-700"
+                    >
+                        Review Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value="{{ old('title') }}"
+                        placeholder="Enter a title for your review"
+                        required
+                        class="w-full rounded-md border border-slate-400 px-4 py-2 text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    >
+                </div>
+
+                <!-- Review content -->
+                <div>
+                    <label
+                        for="content"
+                        class="mb-1 block font-medium text-slate-700"
+                    >
+                        Review
+                    </label>
+
+                    <textarea
+                        id="content"
+                        name="content"
+                        rows="6"
+                        placeholder="Write your review..."
+                        required
+                        class="w-full rounded-md border border-slate-400 px-4 py-3 text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    >{{ old('content') }}</textarea>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-center">
+
+                    <a
+                        href="{{ route('movies.show', $movie) }}"
+                        class="rounded-md border border-slate-400 px-6 py-3 text-center font-bold text-slate-700 hover:bg-slate-100"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="rounded-md bg-blue-600 px-6 py-3 font-bold text-white hover:bg-green-500 hover:text-black"
+                    >
+                        Submit Review
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
 
     </main>
 

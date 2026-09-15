@@ -11,118 +11,209 @@
 
     @include('layouts.navbar')
 
-    <main>
+    <main class="flex-1">
 
-        <h1>Browse Movies</h1>
-
-        <form method="GET" action="{{ route('movies.index') }}">
-
-            <div>
-                <label for="search">Search movies by title</label>
-                <input
-                    type="text"
-                    id="search"
-                    name="search"
-                    value="{{ $search }}"
-                    placeholder="Title contains ..."
-                >
-            </div>
-
-            <div>
-                <label for="genre">Genre</label>
-                <select id="genre" name="genre">
-                    <option value="">All Genres</option>
-
-                    @foreach ($genres as $item)
-                        <option
-                            value="{{ $item->id }}"
-                            {{ $genre == $item->id ? 'selected' : '' }}
-                        >
-                            {{ $item->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div>
-                <label for="year">Release Year</label>
-                <select id="year" name="year">
-                    <option value="">All Years</option>
-
-                    @foreach ($years as $item)
-                        <option
-                            value="{{ $item->release_year }}"
-                            {{ $year == $item->release_year ? 'selected' : '' }}
-                        >
-                            {{ $item->release_year }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <button type="submit">Search</button>
-
-        </form>
-
-        <hr>
-
-        <section>
-
-            <h2>Movies</h2>
-
-            @auth
-                @if (auth()->user()->role === 'admin')
-                    <a href="{{ route('admin.movies.index') }}">
-                        Manage Movies
-                    </a>
-                @endif
-            @endauth
-
-            @if ($movies->isEmpty())
-
-                <p>No matching movies found.</p>
-
-            @else
-
-                @foreach ($movies as $movie)
-
+        <section class="mx-auto max-w-7xl px-6 py-10">
+    
+            <!-- Page heading -->
+            <h1 class="text-center text-2xl font-bold text-blue-600 sm:text-3xl">
+                Browse Movies
+            </h1>
+    
+            <!-- Search and filters -->
+            <form
+                method="GET"
+                action="{{ route('movies.index') }}"
+                class="mt-8"
+            >
+    
+                <div class="mx-auto max-w-2xl space-y-5">
+    
+                    <!-- Search by title -->
                     <div>
-                        @if ($movie->poster)
-                            <img
-                                src="{{ asset('images/' . $movie->poster) }}"
-                                alt="{{ $movie->title }} poster"
-                                width="200"
-                            >
-                        @endif
+                        <label
+                            for="search"
+                            class="mb-1 block font-medium text-slate-700"
+                        >
+                            Search movies by title
+                        </label>
+    
+                        <input
+                            type="text"
+                            id="search"
+                            name="search"
+                            value="{{ $search }}"
+                            placeholder="Title contains..."
+                            class="w-full rounded-md border border-slate-400 px-4 py-2 text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                        >
+                    </div>
+    
+                    <!-- Genre -->
+                    <div>
+                        <label
+                            for="genre"
+                            class="mb-1 block font-medium text-slate-700"
+                        >
+                            Genre
+                        </label>
+    
+                        <select
+                            id="genre"
+                            name="genre"
+                            class="w-full rounded-md border border-slate-400 bg-white px-4 py-2 text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                        >
+                            <option value="">All Genres</option>
+    
+                            @foreach ($genres as $genreOption)
+                                <option
+                                    value="{{ $genreOption->id }}"
+                                    {{ $genre == $genreOption->id ? 'selected' : '' }}
+                                >
+                                    {{ $genreOption->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+    
+                    <!-- Release Year -->
+                    <div>
+                        <label
+                            for="year"
+                            class="mb-1 block font-medium text-slate-700"
+                        >
+                            Release Year
+                        </label>
+    
+                        <select
+                            id="year"
+                            name="year"
+                            class="w-full rounded-md border border-slate-400 bg-white px-4 py-2 text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                        >
+                            <option value="">All Years</option>
+    
+                            @foreach ($years as $yearOption)
+                                <option
+                                    value="{{ $yearOption->release_year }}"
+                                    {{ $year == $yearOption->release_year ? 'selected' : '' }}
+                                >
+                                    {{ $yearOption->release_year }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+    
+                    <!-- Search button -->
+                    <div class="text-center">
+    
+                        <button
+                            type="submit"
+                            class="rounded-md bg-blue-600 px-6 py-2 font-bold text-white hover:bg-green-500 hover:text-black"
+                        >
+                            Search
+                        </button>
+    
+                    </div>
+    
+                </div>
+    
+            </form>
+    
+            <hr class="my-10 border-slate-300">
+    
+            <!-- Movies -->
+            <section>
+    
+                <h2 class="text-2xl font-bold text-green-600 sm:text-3xl">
+                    Movies
+                </h2>
+    
+                <!-- Movie cards -->                
+                @if ($movies->count())
 
-                        <h3>{{ $movie->title }}</h3>
+                    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:grid-cols-4">
 
-                        <p>{{ $movie->release_year }}</p>
+                        @foreach ($movies as $movie)
 
-                        @if ($movie->reviews_avg_rating)
-                            <p>
-                                ★ {{ number_format($movie->reviews_avg_rating, 1) }} out of 5
-                            </p>
-                        @else
-                            <p>★ No ratings yet</p>
-                        @endif
+                            <article class="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
 
-                        <a href="{{ route('movies.show', $movie) }}">
-                            Details
-                        </a>
+                                <!-- Poster -->
+                                <div class="aspect-[1/1] w-full bg-slate-100">
+
+                                    @if ($movie->poster)
+
+                                        <img
+                                            src="{{ asset('images/' . $movie->poster) }}"
+                                            alt="{{ $movie->title }} poster"
+                                            class="h-full w-full object-contain"
+                                        >
+
+                                    @else
+
+                                        <div class="flex h-full items-center justify-center text-slate-500">
+                                            No poster available
+                                        </div>
+
+                                    @endif
+
+                                </div>
+
+                                <!-- Movie information -->
+                                <div class="flex flex-1 flex-col p-5">
+
+                                    <h3 class="text-xl font-bold text-slate-900">
+                                        {{ $movie->title }}
+                                    </h3>
+
+                                    <p class="mt-2 text-slate-600">
+                                        {{ $movie->release_year }}
+                                    </p>
+
+                                    @if ($movie->reviews_avg_rating)
+
+                                        <p class="mt-2 text-slate-700">
+                                            ★ {{ number_format($movie->reviews_avg_rating, 1) }} out of 5
+                                        </p>
+
+                                    @else
+
+                                        <p class="mt-2 text-slate-500">
+                                            ★ No ratings yet
+                                        </p>
+
+                                    @endif
+
+                                    <!-- Details button -->
+                                    <div class="mt-auto pt-5">
+
+                                        <a
+                                            href="{{ route('movies.show', $movie) }}"
+                                            class="inline-block rounded-md bg-blue-600 px-5 py-2 font-bold text-white hover:bg-green-500 hover:text-black"
+                                        >
+                                            Details
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </article>
+
+                        @endforeach
+
                     </div>
 
-                @endforeach
+                @else
 
-                <!-- generate the pagination controls automatically -->
-                <div>
-                    {{ $movies->links() }}
-                </div>
+                    <p class="mt-6 text-slate-600">
+                        No matching movies found.
+                    </p>
 
-            @endif
-
+                @endif
+    
+            </section>
+    
         </section>
-
+    
     </main>
 
     @include('layouts.footer')
