@@ -6,6 +6,9 @@ use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
+// use third party API to search for movie from TMDB
+use App\Services\TmdbService;
+
 class MovieController extends Controller
 {
     // Home page lists newly added 9 movies
@@ -98,15 +101,26 @@ class MovieController extends Controller
 
     // Get all available genres from the genres table
     // send them to Add Movie form as $genres
-    public function create()
+    public function create(TmdbService $tmdbService)
     {
         $genres = Genre::orderBy('name')->get();
 
-        return view('admin.movies.create', compact('genres'));
+        $tmdbResults = [];
+
+        if (request()->filled('tmdb_search')) {
+            $tmdbResults = $tmdbService->searchMovies(
+                request()->input('tmdb_search')
+            )['results'] ?? [];            
+        }
+
+        return view('admin.movies.create', compact(
+            'genres',
+            'tmdbResults'
+            ));
     }
 
     // Make Add Movie form save a movie to the database
-    public function store(Request $request)
+    public function store(Request $request, TmdbService $tmdbService)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -115,6 +129,7 @@ class MovieController extends Controller
             'genres' => 'required|array|min:1',
             'genres.*' => 'exists:genres,id',
             'poster' => 'nullable|image|mimes:jpeg,png,gif|max:2048',
+            'tmdb_poster_path' => 'nullable|string',
         ], [
             'poster.uploaded' => 'The poster could not be uploaded. Please choose a JPEG, PNG, or GIF image no larger than 2 MB.',
             'poster.image' => 'The poster must be an image file.',
@@ -132,6 +147,13 @@ class MovieController extends Controller
             // Moves the image into
             $request->file('poster')->move(
                 public_path('images'),
+                $posterName
+            );
+        } elseif (!empty($validated['tmdb_poster_path'])) {
+            $posterName = time().'_tmdb.jpg';
+
+            $tmdbService->downloadPoster(
+                $validated['tmdb_poster_path'],
                 $posterName
             );
         }
