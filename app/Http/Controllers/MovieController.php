@@ -153,12 +153,18 @@ class MovieController extends Controller
                 $posterName
             );
         } elseif (!empty($validated['tmdb_poster_path'])) {
-            $posterName = time().'_tmdb.jpg';
+            $posterName = time() . '_tmdb.jpg';
 
-            $tmdbService->downloadPoster(
+            $downloadedPoster = $tmdbService->downloadPoster(
                 $validated['tmdb_poster_path'],
                 $posterName
             );
+
+            if (!$downloadedPoster) {
+                return back()
+                    ->withInput()
+                    ->with('error', 'The movie was found on TMDB, but its poster could not be downloaded. Please try again or upload a poster manually.');
+            }
         }
 
         $movie = Movie::create([
