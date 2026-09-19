@@ -1,3 +1,148 @@
+# CineTrack Routes Map
+
+## Route Overview
+
+The CineTrack application uses Laravel routes to control access to public, authenticated, and administrator functions.
+
+### Public Routes
+
+| Method | Route               | Purpose                                                      | Access |
+| ------ | ------------------- | ------------------------------------------------------------ | ------ |
+| GET    | `/`               | Display home page with recent movies                         | Public |
+| GET    | `/register`       | Display registration form                                    | Public |
+| POST   | `/register`       | Register a new user                                          | Public |
+| GET    | `/login`          | Display login form                                           | Public |
+| POST   | `/login`          | Authenticate a user                                          | Public |
+| GET    | `/movies`         | Browse movies with search, genre, year filter and pagination | Public |
+| GET    | `/movies/{movie}` | View movie details and reviews                               | Public |
+
+### Authenticated Routes
+
+| Method | Route                              | Purpose                              | Access                |
+| ------ | ---------------------------------- | ------------------------------------ | --------------------- |
+| GET    | `/my-reviews`                    | Display the logged-in user's reviews | Authenticated         |
+| GET    | `/movies/{movie}/reviews/create` | Display review creation form         | Authenticated         |
+| POST   | `/movies/{movie}/reviews`        | Save a new review                    | Authenticated         |
+| GET    | `/reviews/{review}/edit`         | Display review edit form             | Authenticated + Owner |
+| PUT    | `/reviews/{review}`              | Update an existing review            | Authenticated + Owner |
+| DELETE | `/reviews/{review}`              | Delete an existing review            | Authenticated + Owner |
+| POST   | `/logout`                        | Log the current user out             | Authenticated         |
+
+### Administrator Routes
+
+All administrator routes use both the `auth` and `admin` middleware. Only authenticated users with the `admin` role can access these routes.
+
+| Method | Route                          | Purpose                           | Access |
+| ------ | ------------------------------ | --------------------------------- | ------ |
+| GET    | `/admin/movies`              | Display the movie management page | Admin  |
+| GET    | `/admin/movies/create`       | Display the Add Movie form        | Admin  |
+| POST   | `/admin/movies`              | Save a new movie                  | Admin  |
+| GET    | `/admin/movies/{movie}/edit` | Display the Edit Movie form       | Admin  |
+| PUT    | `/admin/movies/{movie}`      | Update an existing movie          | Admin  |
+| DELETE | `/admin/movies/{movie}`      | Delete a movie                    | Admin  |
+
+## TMDB Movie Search Flow
+
+TMDB movie search is integrated into the existing administrator Add Movie workflow.
+
+```text
+Admin
+  ↓
+Add Movie
+  ↓
+Search TMDB
+  ↓
+Select Movie
+  ↓
+Movie information populates the existing form
+  ↓
+Admin checks/edits information
+  ↓
+Submit Add Movie form
+  ↓
+MovieController stores the movie
+  ↓
+TMDB poster is downloaded when selected
+  ↓
+Movie saved to CineTrack database
+```
+
+The TMDB search is handled through the Add Movie page using a GET request with the `tmdb_search` query parameter rather than a separate public route.
+
+## Access Control
+
+```text
+Guest
+ ├── Home
+ ├── Browse Movies
+ ├── View Movie Details
+ ├── Register
+ └── Login
+
+Authenticated User
+ ├── All public pages
+ ├── My Reviews
+ ├── Create Review
+ ├── Edit Own Review
+ ├── Delete Own Review
+ └── Logout
+
+Administrator
+ ├── All authenticated functions
+ └── Movie Management
+      ├── View Movies
+      ├── Add Movie
+      ├── Search TMDB
+      ├── Edit Movie
+      └── Delete Movie
+```
+
+## Middleware and Authorisation
+
+* Public movie routes allow guests to browse movies and read reviews.
+* Review creation, editing, updating and deletion require authentication.
+* Review editing and deletion also check that the authenticated user owns the review.
+* Administrator movie management routes require both `auth` and `admin` middleware.
+* The `admin` middleware checks that the authenticated user's role is `admin`.
+* Unauthorised access to protected administrator or review-owner functions returns HTTP 403.
+* Logout requires authentication.
+
+## Main Route Flow
+
+```text
+Home
+  ↓
+Browse Movies
+  ↓
+Movie Details
+  ├── Read Reviews
+  └── Login/Register
+           ↓
+      Create Review
+           ↓
+      My Reviews
+       ├── Edit Own Review
+       └── Delete Own Review
+
+Administrator
+  ↓
+Manage Movies
+  ├── View Movie
+  ├── Add Movie
+  │     └── Search TMDB → Select Movie → Save
+  ├── Edit Movie
+  └── Delete Movie
+```
+
+## Related Controllers
+
+| Controller           | Main Responsibility                                                          |
+| -------------------- | ---------------------------------------------------------------------------- |
+| `MovieController`  | Home page, public movie browsing, movie details and administrator movie CRUD |
+| `ReviewController` | Review creation, display, editing, updating and deletion                     |
+| `AuthController`   | Registration, login and logout                                               |
+
+## Related Middlewar
 
 # CineTrack — Routes Map
 
@@ -40,7 +185,7 @@ These routes are available to guests and authenticated users.
 
 ## Review Routes
 
-Review routes require authentication. All authenticated users, including admins, can create reviews. Users can only edit or delete reviews that they own.
+All review routes require authentication. The edit, update and delete actions also perform a server-side ownership check in `<span>ReviewController</span>`, so users can only edit, update or delete their own reviews.
 
 | Method    | Route                              | Page / Action                              | Access             |
 | --------- | ---------------------------------- | ------------------------------------------ | ------------------ |

@@ -16,10 +16,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
-// Logout
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-
 // Public movie routes (guests are allowed to browse movies and read reviews)
 Route::get('/movies', [MovieController::class, 'index'])
     ->name('movies.index');
@@ -27,14 +23,6 @@ Route::get('/movies', [MovieController::class, 'index'])
 Route::get('/movies/{movie}', [MovieController::class, 'show'])
     ->name('movies.show');
 
-Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])
-    ->name('reviews.edit');
-
-Route::put('/reviews/{review}', [ReviewController::class, 'update'])
-    ->name('reviews.update');
-
-Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])
-    ->name('reviews.destroy');
 
 // Admin movie management
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -48,7 +36,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         ->name('admin.movies.create');
 
     // Save the new added movie
-    Route::POST('/admin/movies', [MovieController::class, 'store'])
+    Route::post('/admin/movies', [MovieController::class, 'store'])
         ->name('admin.movies.store');
 
     // show movie edit form
@@ -74,6 +62,18 @@ Route::middleware('auth')->group(function () {
         ->name('reviews.create');
 
     Route::post('/movies/{movie}/reviews', [ReviewController::class, 'store'])
-        ->name('reviews.store');    
-     
+        ->name('reviews.store');
+    
+    Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])
+        ->name('reviews.edit');
+    
+    Route::put('/reviews/{review}', [ReviewController::class, 'update'])
+        ->name('reviews.update');
+    
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])
+        ->name('reviews.destroy');
+        
+    // Logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+        
 });
