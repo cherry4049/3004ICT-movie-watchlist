@@ -36,7 +36,8 @@ return [
     ],
 
     'tmdb' => [
-        'token' => env('TMDB_API_TOKEN')
+        'token' => env('TMDB_API_TOKEN'),
+        'ca_cert_path' => base_path('storage/certs/cacert.pem'),
     ]
 
 ];

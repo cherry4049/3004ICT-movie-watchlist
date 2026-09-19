@@ -6,6 +6,9 @@ use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
+//for removing movie poster when deleting a movie
+use Illuminate\Support\Facades\File;
+
 // use third party API to search for movie from TMDB
 use App\Services\TmdbService;
 
@@ -47,7 +50,7 @@ class MovieController extends Controller
 
         $movies = $query
             ->orderByDesc('created_at')
-            ->paginate(16)
+            ->paginate(6)
 
             // keeps the current search/filter values when moving between pages
             ->withQueryString();
@@ -208,13 +211,26 @@ class MovieController extends Controller
         // If the admin doesn't upload a new poster, the existing poster filename is kept.
         $posterName = $movie->poster;
 
+        // check if a new poster file is uploaded -> save the current poster filename before replacing it later        
         if ($request->hasFile('poster')) {
+            $oldPoster = $movie->poster;
+
+            //creates the filename for the newly uploaded poster           
             $posterName = time() . '_' . $request->file('poster')->getClientOriginalName();
 
             $request->file('poster')->move(
                 public_path('images'),
                 $posterName
             );
+
+            // Delete the old poster after the new poster has been saved
+            if ($oldPoster) {
+                $oldPosterPath = public_path('images/' . $oldPoster);
+
+                if (File::exists($oldPosterPath)) {
+                    File::delete($oldPosterPath);
+                }
+            }
         }
 
         $movie->update([
@@ -233,6 +249,14 @@ class MovieController extends Controller
 
     public function destroy(Movie $movie)
     {
+        if ($movie->poster) {
+            $posterPath = public_path('images/' . $movie->poster);
+
+            if (File::exists($posterPath)) {
+                File::delete($posterPath);
+            }
+        }                 
+        
         $movie->delete();
 
         return redirect()

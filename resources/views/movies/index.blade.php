@@ -209,7 +209,11 @@
                     </p>
 
                 @endif
-    
+
+                <div class="mt-5">
+                    {{ $movies->links() }}
+                </div>
+
             </section>
     
         </section>

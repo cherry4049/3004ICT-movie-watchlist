@@ -10,7 +10,7 @@ class TmdbService
     {
         return Http::withToken(config('services.tmdb.token'))
             ->withOptions([
-                'verify'=> 'C:\php\extras\ssl\cacert.pem',
+                'verify' => config('services.tmdb.ca_cert_path'),
             ])
             ->get('https://api.themoviedb.org/3/search/movie', [
                 'query' => $query,
@@ -23,13 +23,12 @@ class TmdbService
     public function downloadPoster(string $posterPath, string $filename)
     {
         $response = Http::withOptions([
-            'verify' => 'C:\php\extras\ssl\cacert.pem',
-        ])->get(
-            'https://image.tmdb.org/t/p/w500' . $posterPath
+                'verify' => config('services.tmdb.ca_cert_path'),
+            ])->get(
+                'https://image.tmdb.org/t/p/w500' . $posterPath
         );
 
         if ($response->successful()) {
-           
             file_put_contents(
                 public_path('images/' . $filename),
                 $response->body()

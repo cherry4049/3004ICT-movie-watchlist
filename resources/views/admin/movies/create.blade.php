@@ -21,7 +21,7 @@
             <div class="mb-6">
                 <a
                     href="{{ route('admin.movies.index') }}"
-                    class="inline-block rounded-md bg-blue-300 px-4 py-1 font-bold hover:bg-green-500"
+                    class="inline-block rounded-md text-purple-600 bg-green-50 px-4 py-1 font-bold hover:bg-green-500"
                 >
                     ← Back to Movie Management
                 </a>
